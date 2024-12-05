@@ -58,6 +58,20 @@ const RoomContextProvider = ({ children }: { children: ReactChild }) => {
   const y = useMotionValue(0);
 
   useEffect(() => {
+    socket.on("connect_error", (error) => {
+      console.error("Connection error:", error);
+      toast.error("Connection error. Please try again.");
+    });
+
+    socket.on("connect", () => {
+      console.log("Connected to server");
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log("Disconnected:", reason);
+      toast.warning("Disconnected from server. Trying to reconnect...");
+    });
+
     socket.on("room", (room, usersMovesToParse, usersToParse) => {
       const usersMoves = new Map<string, Move[]>(JSON.parse(usersMovesToParse));
       const usersParsed = new Map<string, string>(JSON.parse(usersToParse));
@@ -104,6 +118,9 @@ const RoomContextProvider = ({ children }: { children: ReactChild }) => {
     });
 
     return () => {
+      socket.off("connect_error");
+      socket.off("connect");
+      socket.off("disconnect");
       socket.off("room");
       socket.off("new_user");
       socket.off("user_disconnected");
