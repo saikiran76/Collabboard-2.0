@@ -10,7 +10,7 @@ const port = parseInt(process.env.PORT || "3001", 10);
 const app = express();
 const server = createServer(app);
 
-const io = new Server(server, {
+const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   cors: {
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
