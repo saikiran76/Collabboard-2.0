@@ -9,6 +9,20 @@
 - Recoil for state management
 - Socket-IO client for real-time communication and user colloboration
 
+## Features of the current version
+### Real-time Collaborative Drawing
+- Multiple users can draw simultaneously 👥💬
+- Drawing events are broadcasted to all room participants 
+- Mouse position tracking
+### Room Management
+- Create/Join rooms with unique IDs
+- Room size limit (12 users) && Room state persistence during session 
+- User presence tracking 🖲️
+### Proper canvas
+- Draggable 🖱️
+- Minimap for navigation
+- Chat with the colloboaration users 👥💬
+
 ### Backend (deployed on Render)
 - Nodejs (Express.js) for socket server
 - Real-time Communication: WebSocket connection for low-latency updates
