@@ -14,14 +14,18 @@ const io = new Server<ClientToServerEvents, ServerToClientEvents>(server, {
   cors: {
     origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["my-custom-header"]
   },
-  transports: ["websocket", "polling"]
+  transports: ["websocket", "polling"],
+  pingTimeout: 60000
 });
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:3000",
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST"],
+  allowedHeaders: ["my-custom-header"]
 }));
 
 const rooms = new Map<string, Room>();
